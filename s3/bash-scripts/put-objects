@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+BUCKET_NAME=$1
+TEMP_DIR="./s3_add_temp"
+mkdir -p "$TEMP_DIR"
+
+# Pick a random number between 1 and 5
+RANDOM_NUM=$((1 + $RANDOM % 5))
+FILENAME="filename_$RANDOM_NUM.txt"
+FILEPATH="$TEMP_DIR/$FILENAME"
+
+# Create the file
+openssl rand -base64 12 > "$FILEPATH"
+
+echo "ADD-ONLY MODE: Selected $FILENAME"
+
+# The --if-none-match "*" is the secret sauce. 
+# It tells S3: "Abort if this filename already exists."
+aws s3api put-object \
+    --bucket "$BUCKET_NAME" \
+    --key "$FILENAME" \
+    --body "$FILEPATH" \
+    --if-none-match "*" > /dev/null 2>&1
+
+if [ $? -eq 0 ]; then
+    echo "✅ SUCCESS: $FILENAME was added to the bucket."
+else
+    echo "⚠️  BLOCKED: $FILENAME already exists. No changes made."
+fi
+
+rm -rf "$TEMP_DIR"

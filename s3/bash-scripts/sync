@@ -1,2 +1,22 @@
-#! /usr//bin/env bash
+#!/usr/bin/env bash
 
+BUCKET_NAME=$1
+TEMP_DIR="./s3_sync_temp"
+mkdir -p "$TEMP_DIR"
+
+# Pick a random number between 1 and 5
+RANDOM_NUM=$((1 + $RANDOM % 5))
+FILENAME="filename_$RANDOM_NUM.txt"
+FILEPATH="$TEMP_DIR/$FILENAME"
+
+# Create the file with some random data
+openssl rand -base64 12 > "$FILEPATH"
+
+echo "SYNC MODE: Selected $FILENAME"
+echo "Uploading... (If this file exists in S3, it WILL be overwritten)"
+
+# Sync command
+aws s3 sync "$TEMP_DIR" "s3://$BUCKET_NAME"
+
+rm -rf "$TEMP_DIR"
+echo "Done."

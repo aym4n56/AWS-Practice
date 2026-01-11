@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+echo "deleting bucket..."
 
 #this checks if at least one argument is provided
 if [ -z "$1" ]; then
