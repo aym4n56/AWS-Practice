@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+STACK_NAME="ayman-the-genius-s3"
+
+aws cloudformation delete-stack \
+    --stack-name $STACK_NAME \
+    --region eu-west-2

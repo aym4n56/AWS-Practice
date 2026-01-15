@@ -1,0 +1,5 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A simiple s3 bucket from ayman
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'

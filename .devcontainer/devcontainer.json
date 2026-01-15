@@ -2,14 +2,26 @@
     "name": "AWS-Bootcamp-2026",
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
     "features": {
-        "ghcr.io/devcontainers/features/aws-cli:1": {}
+        "ghcr.io/devcontainers/features/aws-cli:1": {},
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "21",
+            "installJdkTag": "true"
+        },
+        "ghcr.io/devcontainers/features/maven:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/ruby:1": {
+            "version": "3.3"
+        }
     },
     "customizations": {
         "vscode": {
             "extensions": [
-                "amazonwebservices.aws-toolkit-vscode"
+                "amazonwebservices.aws-toolkit-vscode",
+                "vscjava.vscode-java-pack",
+                "rebornix.Ruby"
             ]
         }
     },
-    "postCreateCommand": "aws --version"
+    "postCreateCommand": "java -version && mvn -version && ruby -v && aws --version"
 }
