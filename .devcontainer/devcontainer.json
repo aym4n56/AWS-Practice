@@ -5,6 +5,9 @@
         "ghcr.io/devcontainers/features/aws-cli:1": {},
         "ghcr.io/devcontainers/features/terraform:1": {
             "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
         }
     },
     "customizations": {
@@ -15,5 +18,5 @@
             ]
         }
     },
-    "postCreateCommand": "aws --version && terraform -version"
+    "postCreateCommand": "npm install -g aws-cdk && aws --version && terraform -version && cdk --version"
 }
