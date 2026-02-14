@@ -1,0 +1,1 @@
+Metadata in S3 is a set of key-value pairs stored with an object that provides descriptive information, such as the file type, creation date, or custom user-defined tags, without being part of the actual data content.
