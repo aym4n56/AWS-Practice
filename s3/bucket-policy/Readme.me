@@ -1,0 +1,16 @@
+## Create a bucket
+aws s3 mb s3://ayman-bucket-policy-ex
+
+## uploaded object to bucket
+aws s3 cp object.txt s3://ayman-bucket-policy-ex/
+
+## applies policy to bucket which makes blocks uploads but allows read only public access
+aws s3api put-bucket-policy --bucket ayman-bucket-policy-ex --policy file://policy.json
+
+## attempting to upload file after policy has been applied
+aws s3 cp wont-work.txt s3://ayman-bucket-policy-ex/
+result: upload failed: ./wont-work.txt to s3://ayman-bucket-policy-ex/wont-work.txt An error occurred (AccessDenied) when calling the PutObject operation: User: arn:aws:iam::601970634637:user/ona-machine is not authorized to perform: s3:PutObject on resource: "arn:aws:s3:::ayman-bucket-policy-ex/wont-work.txt" with an explicit deny in a resource-based policy
+
+# attemping to read file that was previously added before policy was uploaded.
+aws s3 cp s3://ayman-bucket-policy-ex/object.txt - 
+result: You should be able to get this item from the bucket, however, the policy will not allow you to be able to put any objects into this bucket.@aym4n56 ➜ /
